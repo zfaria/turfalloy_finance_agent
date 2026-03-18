@@ -2,7 +2,6 @@ FROM python:3.11-slim-bullseye
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Instalar dependências + wkhtmltopdf (FUNCIONA no bullseye)
 RUN apt-get update && apt-get install -y \
     wkhtmltopdf \
     xvfb \
@@ -18,7 +17,6 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /app
 
 COPY requirements.txt .
-
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
@@ -26,5 +24,6 @@ COPY . .
 RUN mkdir -p reports
 
 ENV PYTHONUNBUFFERED=1
+ENV PYTHONPATH=/app
 
-CMD ["python", "bot/main.py"]
+CMD ["python", "-m", "bot.main"]
