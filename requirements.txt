@@ -1,0 +1,11 @@
+python-telegram-bot==20.7
+openai
+python-dotenv
+sqlalchemy
+apscheduler
+alembic
+matplotlib
+psycopg2-binary
+pdfkit==1.0.0
+weasyprint==53.3 
+Pillow==10.2.0

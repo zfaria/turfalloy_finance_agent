@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+<title>Relatório Financeiro</title>
+
+<style>
+
+body{
+font-family:Arial, Helvetica, sans-serif;
+background:#f5f6fa;
+padding:30px;
+}
+
+.container{
+max-width:1000px;
+margin:auto;
+}
+
+.card{
+background:white;
+padding:20px;
+border-radius:10px;
+margin-bottom:20px;
+box-shadow:0 3px 10px rgba(0,0,0,0.05);
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+th,td{
+padding:10px;
+border-bottom:1px solid #eee;
+text-align:left;
+}
+
+h1{
+margin-bottom:25px;
+}
+
+.chart{
+width:100%;
+max-height:400px;
+object-fit:contain;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>📊 Relatório Financeiro</h1>
+
+<div class="card">
+
+<h2>Resumo</h2>
+
+<p><b>Receitas:</b> R$ {{income}}</p>
+<p><b>Despesas:</b> R$ {{expense}}</p>
+<p><b>Saldo:</b> R$ {{balance}}</p>
+
+</div>
+
+<div class="card">
+
+<h2>Distribuição de Gastos</h2>
+
+{{category_chart}}
+
+</div>
+
+<div class="card">
+
+<h2>Evolução Financeira</h2>
+
+{{flow_chart}}
+
+</div>
+
+<div class="card">
+
+<h2>Transações</h2>
+
+<table>
+
+<tr>
+<th>Data</th>
+<th>Categoria</th>
+<th>Tipo</th>
+<th>Valor</th>
+</tr>
+
+{{transactions_rows}}
+
+</table>
+
+</div>
+
+<div class="card">
+
+<h2>Análise</h2>
+
+<p>{{analysis}}</p>
+
+</div>
+
+</div>
+
+</body>
+</html>
