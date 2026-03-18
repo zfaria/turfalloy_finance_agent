@@ -27,4 +27,4 @@ RUN mkdir -p reports
 
 ENV PYTHONUNBUFFERED=1
 
-CMD ["python", "./main.py"]
+CMD ["python", "bot/main.py"]
