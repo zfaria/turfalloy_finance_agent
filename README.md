@@ -29,22 +29,23 @@ Uso de LLM (OpenAI) para:
 
 ## 🏗️ Arquitetura do Projeto
 
-```id="arch1"
 project/
 │
-├── main.py                  # Entry point do bot (Telegram)
+├── bot/
+│   ├── __init__.py
+│   └── main.py              # Entry point do bot (Telegram)
 │
 ├── services/
-│   └── categorizer.py       # IA: parsing de texto → JSON estruturado
+│   └── categorizer.py       # IA: parsing de texto → JSON
 │
 ├── database/
+│   ├── __init__.py
 │   ├── models.py            # ORM (SQLAlchemy)
 │   └── crud.py              # Operações no banco
 │
 ├── reports/
-│   ├── report_generator.py  # Geração de relatórios
-│   ├── dashboard_template.html
-│   └── *.html / *.pdf / *.png
+│   ├── __init__.py
+│   └── report_generator.py  # Geração de relatórios
 │
 ├── alembic/                 # Controle de migrations
 │   ├── versions/
@@ -52,11 +53,10 @@ project/
 │   └── script.py.mako
 │
 ├── alembic.ini
-├── finance.db
 ├── requirements.txt
 ├── Dockerfile
 ├── docker-compose.yml
-├── .env
+├── .env.example             # Template de variáveis
 └── wait-for-it.sh
 ```
 
