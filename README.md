@@ -6,11 +6,11 @@ Agente financeiro inteligente via Telegram que interpreta linguagem natural, cat
 
 ## 🚀 Visão Geral
 
-Este projeto é um **assistente financeiro pessoal automatizado**, capaz de:
+Este projeto é um assistente financeiro pessoal automatizado, capaz de:
 
 * Interpretar mensagens como: *"gastei 50 no mercado"*
 * Classificar receitas e despesas automaticamente com IA
-* Armazenar dados estruturados em banco SQLite
+* Armazenar dados estruturados em banco PostgreSQL (Render)
 * Gerar dashboards e relatórios financeiros
 * Produzir arquivos HTML e PDF prontos para envio
 
@@ -21,7 +21,7 @@ Este projeto é um **assistente financeiro pessoal automatizado**, capaz de:
 Uso de LLM (OpenAI) para:
 
 * Extração de dados de linguagem natural
-* Classificação automática (`income` / `expense`)
+* Classificação automática (income / expense)
 * Normalização de categorias
 * Fallback inteligente quando regex falha
 
@@ -29,6 +29,7 @@ Uso de LLM (OpenAI) para:
 
 ## 🏗️ Arquitetura do Projeto
 
+```
 project/
 │
 ├── bot/
@@ -56,7 +57,7 @@ project/
 ├── requirements.txt
 ├── Dockerfile
 ├── docker-compose.yml
-├── .env.example             # Template de variáveis
+├── .env.example
 └── wait-for-it.sh
 ```
 
@@ -69,10 +70,44 @@ project/
 * OpenAI API (GPT-4o-mini)
 * SQLAlchemy
 * Alembic (migrations)
-* SQLite
+* PostgreSQL (Render)
 * Matplotlib
 * PDFKit + wkhtmltopdf
 * Docker
+* AWS (EC2)
+
+---
+
+## ☁️ Deploy e Infraestrutura
+
+O projeto está em produção utilizando uma arquitetura híbrida:
+
+### 🖥️ Aplicação (AWS)
+
+* Deploy realizado em instância EC2 (Ubuntu)
+* Containerização com Docker
+* Execução contínua com política:
+
+```bash
+docker run -d \
+  --name finance_bot \
+  --restart always \
+  --env-file .env \
+  finance-agent
+```
+
+### 🗄️ Banco de Dados (Render)
+
+* PostgreSQL gerenciado
+* Conexão via variável de ambiente `DATABASE_URL`
+* Persistência segura e independente da aplicação
+
+### ✅ Resultado
+
+* Bot rodando 24/7 na nuvem
+* Totalmente desacoplado da máquina local
+* Alta disponibilidade
+* Arquitetura próxima de produção real
 
 ---
 
@@ -80,11 +115,9 @@ project/
 
 ### 💬 Entrada em linguagem natural
 
-```
 "Gastei 120 no mercado"
 "Recebi 3000 de salário"
 "Paguei 45 de Uber"
-```
 
 ---
 
@@ -136,14 +169,14 @@ project/
 }
 ```
 
-5. Dados salvos no banco
+5. Dados salvos no PostgreSQL
 6. Dashboard atualizado
 
 ---
 
 ## 🧬 Banco de Dados e Migrations
 
-O projeto utiliza **Alembic** para versionamento do banco.
+O projeto utiliza Alembic para versionamento do banco.
 
 ### Criar migration
 
@@ -173,37 +206,29 @@ docker run -d --env-file .env finance-agent
 ```
 TELEGRAM_TOKEN=your_token
 OPENAI_API_KEY=your_key
+DATABASE_URL=your_render_postgres_url
 ```
 
 ---
 
 ## 📌 Decisões Técnicas
 
-### ✔️ LLM para parsing
-
+✔️ **LLM para parsing**
 Permite entrada flexível e natural.
 
----
+✔️ **PostgreSQL (Render)**
+Banco robusto e pronto para produção.
 
-### ✔️ Alembic
+✔️ **Alembic**
+Controle profissional de versionamento de banco.
 
-Controle profissional de versionamento de banco (padrão de mercado).
-
----
-
-### ✔️ Base64 nos relatórios
-
+✔️ **Base64 nos relatórios**
 Resolve problema de envio via Telegram (arquivo único).
 
----
+✔️ **Docker + AWS**
+Deploy escalável e independente de ambiente local.
 
-### ✔️ SQLite
-
-Ideal para MVP e portabilidade.
-
----
-
-### ✔️ Arquitetura em camadas
+✔️ **Arquitetura em camadas**
 
 * `services` → lógica de negócio (IA)
 * `database` → persistência
@@ -213,17 +238,18 @@ Ideal para MVP e portabilidade.
 
 ## 🚧 Próximos Passos
 
-* Deploy (AWS / Render)
+* CI/CD (deploy automático)
+* Monitoramento (logs e alertas)
 * Dashboard web (React)
 * Multi-usuário real
-* Cache de respostas IA
+* Cache de respostas da IA
 * Integração com Open Finance
 
 ---
 
 ## 👨‍💻 Autor
 
-**José Faria Neto**
+José Faria Neto
 
 * Data Analytics (FIAP)
 * Foco em IA aplicada e engenharia de software
@@ -236,6 +262,7 @@ Projeto desenvolvido para demonstrar:
 
 * Integração real com IA (LLM)
 * Arquitetura backend moderna
+* Deploy em nuvem (AWS + Render)
 * Automação financeira
 * Geração de relatórios inteligentes
 
@@ -246,9 +273,8 @@ Projeto desenvolvido para demonstrar:
 Este projeto demonstra:
 
 * Uso prático de IA em produto real
-* Controle de migrations com Alembic
-* Integração com APIs externas
+* Deploy em cloud (AWS EC2 + PostgreSQL gerenciado)
 * Arquitetura escalável
+* Integração com APIs externas
+* Boas práticas de engenharia de software
 * Pensamento de produto + engenharia
-
----
